@@ -1,2 +1,2 @@
 # weather
-iOS Weather Application
+iOS weather app
