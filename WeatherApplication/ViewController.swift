@@ -32,16 +32,20 @@ extension ViewController:UISearchBarDelegate{
     //Ивент нажатия кнопки SearchBar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        //Адресс информации с JSON с указанным городом в SearchBar
-        let urlString = "https://api.apixu.com/v1/current.json?key=07657ea2db674a7090c94120181910&q=\(searchBar.text!)"
+        //Адресс информации с JSON с указанным городом в SearchBar на сейчас
+        let urlStringCurrent = "https://api.apixu.com/v1/current.json?key=07657ea2db674a7090c94120181910&q=\(searchBar.text!)"
+        
+        //Адресс информации с JSON с указанным городом в SearchBar на три дня
+        let urlStringForecast = "https://api.apixu.com/v1/forecast.json?key=07657ea2db674a7090c94120181910&q=\(searchBar.text!)&days=3"
         
         //Переменная для хранения имени города
         var locationName: String?
         //Переменная для хранения температуры в данном городе
         var temperature: Double?
 
-        //Делаем GET запрос по URL
-        Alamofire.request(urlString).responseJSON { response in
+      
+        //Делаем GET запрос по URL погода на сейчас
+        Alamofire.request(urlStringCurrent).responseJSON { response in
             
         //Создаем JSON обьект для дальейшего разбора
             if let json = response.result.value {
@@ -65,6 +69,17 @@ extension ViewController:UISearchBarDelegate{
                 }
             }
         }
+        
+        
+        //Делаем GET запрос по URL прогноз на 3 дня
+        Alamofire.request(urlStringForecast).responseJSON { response in
+            
+            //Создаем JSON обьект для дальейшего разбора
+            if let json = response.result.value {
+                if let weatherDictionary = json as? [String:AnyObject] {
+                    print(weatherDictionary)
+                }
+            }
+        }
     }
 }
-
