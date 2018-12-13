@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var CityLabel: UILabel!
     @IBOutlet weak var TemperatureLabel: UILabel!
     
+    //CoreData!!!
+    var weatherData = [WeatherData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
